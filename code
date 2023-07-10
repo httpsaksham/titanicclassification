@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the data
+data = pd.read_csv('sinking_data.csv')
+
+# Select the relevant features (socio-economic status, age, gender, etc.)
+features = data[['Socioeconomic_Status', 'Age', 'Gender', ...]]
+labels = data['Safety_Status']
+
+# Preprocess the data (e.g., convert categorical variables to numerical)
+features = pd.get_dummies(features)  # Convert categorical variables to one-hot encoding
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+
+# Build the Random Forest classifier
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Make predictions
+train_predictions = model.predict(X_train)
+test_predictions = model.predict(X_test)
+
+# Evaluate the model
+train_accuracy = accuracy_score(y_train, train_predictions)
+test_accuracy = accuracy_score(y_test, test_predictions)
+
+print('Train Accuracy:', train_accuracy)
+print('Test Accuracy:', test_accuracy)
